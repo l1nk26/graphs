@@ -1,0 +1,2 @@
+set args < input.txt > output.txt
+start

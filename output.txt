@@ -1,0 +1,9 @@
+5GraphINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEE
+Vertex: venezuela, neighbors -> (colombia 0) (Peru 0) 
+Vertex: colombia, neighbors -> (venezuela 0) (US 0) (Brazil 0) 
+Vertex: US, neighbors -> (colombia 0) 
+Vertex: Brazil, neighbors -> (Mexico 0) (colombia 0) 
+Vertex: Child, neighbors -> (Peru 0) 
+Vertex: Mexico, neighbors -> (Brazil 0) 
+Vertex: Peru, neighbors -> (venezuela 0) (Child 0) 
+

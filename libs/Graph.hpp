@@ -1,0 +1,64 @@
+#pragma once
+
+#include <VertexNode.hpp>
+#include <unordered_map>
+#include <unordered_set>
+#include <iostream>
+#include <Edge.hpp>
+
+template <typename T>
+class Graph {
+    public:
+        Graph();
+        Graph(const Graph<T>& other);
+        ~Graph();
+
+        void createFromMap(std::unordered_set<T>& vertex, std::unordered_map<T, std::unordered_set<T> >& edges);
+        void createFromMapEdges(std::unordered_set<T>& vertex, std::unordered_map<T, std::unordered_set<Edge<T> > >& edges);
+
+        bool empty();
+        void clear();
+
+        void addVertex(const T& vertex);
+        void addEdge(const T& from, const T& to, float wheight = 0.0F);
+
+        void removeVertex(const T& vertex);
+        void removeEdge(const T& from, const T& to);
+
+        bool existVertex(const T& vertex);
+        bool existEdge(const T& from, const T& to);
+
+        std::vector<T> vertices();
+        std::vector<std::vector<T> > edges();
+
+        float edgeWheight(const T& vertex1, const T& vertex2);
+
+        std::vector<T> neightbors(const T& vertex);
+        std::vector<T> successors(const T& vertex);
+        std::vector<T> predecessors(const T& vertex);
+
+        std::vector<T> bfs();
+        std::vector<T> dfs();
+        void dfs(VertexNode<T>* ptr, std::unordered_set<T>& visited, std::vector<T>& result);
+
+        Graph<T>& operator=(const Graph<T>& other);
+        bool operator==(const Graph<T>& other);
+
+        template <typename U>
+        friend std::ostream& operator<<(std::ostream& os, Graph<U>& graph); 
+
+    protected:
+        VertexNode<T>* head;
+        std::string name;
+        int vertexSize, edgeSize;
+
+        VertexNode<T>* findVertex(const T& vertex);
+        void findTwoVertices(const T& from, const T& to, VertexNode<T>*& fromNode, VertexNode<T>*& toNode);
+
+        virtual void connectVertices(VertexNode<T>* fromNode, VertexNode<T>* toNode, float wheight = 0.0F);
+        virtual void unconnectVertices(VertexNode<T>* fromNode, VertexNode<T>* toNodeF);
+
+        void copy(const Graph<T>& from, Graph<T>& to);
+};
+
+#include <Graph.cpp>
