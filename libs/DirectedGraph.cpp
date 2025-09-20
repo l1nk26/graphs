@@ -6,10 +6,9 @@ DirectedGraph<T>::DirectedGraph() : Graph<T>() {
 }
 
 template <typename T>
-DirectedGraph<T>::DirectedGraph(const DirectedGraph& other) 
-:
-    Graph<T>(other)
-{}
+DirectedGraph<T>::DirectedGraph(const DirectedGraph& other) : DirectedGraph<T>() {
+    this->copy(other, *this);
+}
 
 template <typename T>
 void DirectedGraph<T>::connectVertices(VertexNode<T>* node1, VertexNode<T>* node2, float weight) {
