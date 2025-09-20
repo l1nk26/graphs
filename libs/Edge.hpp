@@ -20,7 +20,7 @@ public:
   T getValue() const { return value; }
   float getWeight() const { return weight; }
 
-  bool operator==(const Edge<T>& other) const { return value == other.value && weight && other.weight; }
+  bool operator==(const Edge<T>& other) const { return value == other.value && weight == other.weight; }
   bool operator!=(const Edge<T>& other) const { return !(*this == other);}
 };
 
