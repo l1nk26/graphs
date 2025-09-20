@@ -16,6 +16,9 @@ class Graph {
         void createFromMap(std::unordered_set<T>& vertex, std::unordered_map<T, std::unordered_set<T> >& edges);
         void createFromMapEdges(std::unordered_set<T>& vertex, std::unordered_map<T, std::unordered_set<Edge<T> > >& edges);
 
+
+        int order();
+        int size();
         bool empty();
         void clear();
 

@@ -63,6 +63,16 @@ Graph<T>::~Graph() {
 }
 
 template <typename T>
+int Graph<T>::order() {
+    return vertexSize;
+}
+
+template <typename T>
+int Graph<T>::size() {
+    return edgeSize;
+}
+
+template <typename T>
 bool Graph<T>::empty() {
     return vertexSize == 0;
 }
@@ -371,6 +381,7 @@ VertexNode<T>* Graph<T>::findVertex(const T& vertex) {
     }
     return NULL;
 }
+
 template <typename T>
 void Graph<T>::findTwoVertices(const T& from, const T& to, VertexNode<T>*& fromNode, VertexNode<T>*& toNode) {
     fromNode = NULL;
@@ -387,7 +398,6 @@ void Graph<T>::findTwoVertices(const T& from, const T& to, VertexNode<T>*& fromN
     }
 }
 
-
 template <typename T>
 void Graph<T>::connectVertices(VertexNode<T>* fromNode, VertexNode<T>* toNode, float weight) {
     fromNode->addNeightbor(toNode, weight);
@@ -399,7 +409,6 @@ void Graph<T>::unconnectVertices(VertexNode<T>* fromNode, VertexNode<T>* toNode)
     fromNode->removeNeightbor(toNode);
     toNode->removeNeightbor(fromNode);
 }
-
 
 template <typename T>
 void Graph<T>::copy(const Graph<T>& from, Graph<T>& to) {
