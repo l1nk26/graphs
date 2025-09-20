@@ -23,5 +23,21 @@ int main() {
     assert(disconnectedDirectedGraph.size() == 3);
     assert(disconnectedDirectedGraph.order() == 4);
 
+    graph.clear();
+    assert(graph.size() == 0);
+    assert(graph.order() == 0);
+
+    directedGraph.clear();
+    assert(directedGraph.size() == 0);
+    assert(directedGraph.order() == 0);
+
+    disconnectedGraph.clear();
+    assert(disconnectedGraph.size() == 0);
+    assert(disconnectedGraph.order() == 0);
+
+    disconnectedDirectedGraph.clear();
+    assert(disconnectedDirectedGraph.size() == 0);
+    assert(disconnectedDirectedGraph.order() == 0);
+
     return 0;
 }
