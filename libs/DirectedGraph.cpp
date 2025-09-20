@@ -5,7 +5,6 @@ DirectedGraph<T>::DirectedGraph() : Graph<T>() {
     this->name = "DirectedGraph";
 }
 
-
 template <typename T>
 DirectedGraph<T>::DirectedGraph(const DirectedGraph& other) 
 :

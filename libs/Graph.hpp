@@ -61,6 +61,8 @@ class Graph {
         virtual void unconnectVertices(VertexNode<T>* fromNode, VertexNode<T>* toNodeF);
 
         void copy(const Graph<T>& from, Graph<T>& to);
+
+        bool existEdge(VertexNode<T>* from, VertexNode<T>* to);
 };
 
 #include <Graph.cpp>

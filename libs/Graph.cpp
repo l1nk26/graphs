@@ -157,7 +157,7 @@ bool Graph<T>::existEdge(const T& from, const T& to) {
     VertexNode<T>* toNode;
     findTwoVertices(from, fromNode, toNode);
 
-    return fromNode->existEdge(toNode->getValue());
+    return existEdge(fromNode, toNode);
 }
 
 
@@ -432,10 +432,17 @@ void Graph<T>::copy(const Graph<T>& from, Graph<T>& to) {
     while (current) {
         std::vector<VertexNode<T>*> neighbors = current->getNeighbors();
         for (VertexNode<T>* neighbor : neighbors) {
+            if (existEdge(aux[current->getValue()], aux[neighbor->getValue()])) continue;
+
             to.connectVertices(aux[current->getValue()], aux[neighbor->getValue()]);
         }
         current = current->getNext();
     }
+}
+
+template <typename T>
+bool Graph<T>::existEdge(VertexNode<T>* from, VertexNode<T>* to) {
+    return from->existNeighbor(to->getValue());
 }
 
 template <typename T>

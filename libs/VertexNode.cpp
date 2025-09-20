@@ -5,7 +5,8 @@ template <typename T>
 VertexNode<T>::VertexNode() {
     neighbors = NULL;
     next = NULL;
-    ID = vertexNodeInternals::id++;
+    ID = vertexNodeInternals::id;
+    vertexNodeInternals::id = vertexNodeInternals::id + 1;
 }
 
 template <typename T>
@@ -54,7 +55,7 @@ std::vector<VertexNode<T>*> VertexNode<T>::getNeighbors() {
 template <typename T>
 std::vector<T> VertexNode<T>::getNeighborValues() {
 
-    std::vector<VertexNode<T>*> neighborValues; 
+    std::vector<T> neighborValues; 
     neighborValues.reserve(neighborsSize);
 
     EdgeNode<T>* current = this->neighbors;
