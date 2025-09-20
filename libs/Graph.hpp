@@ -13,9 +13,8 @@ class Graph {
         Graph(const Graph<T>& other);
         ~Graph();
 
-        void createFromMap(std::unordered_set<T>& vertex, std::unordered_map<T, std::unordered_set<T> >& edges);
-        void createFromMapEdges(std::unordered_set<T>& vertex, std::unordered_map<T, std::unordered_set<Edge<T> > >& edges);
-
+        void createFromMap(const std::unordered_set<T>& vertex, const std::unordered_map<T, std::unordered_set<T> >& edges);
+        void createFromMapEdges(const std::unordered_set<T>& vertex, const std::unordered_map<T, std::unordered_set<Edge<T> > >& edges);
 
         int order();
         int size();
@@ -23,7 +22,7 @@ class Graph {
         void clear();
 
         void addVertex(const T& vertex);
-        void addEdge(const T& from, const T& to, float wheight = 0.0F);
+        void addEdge(const T& from, const T& to, float weight = 0.0F);
 
         void removeVertex(const T& vertex);
         void removeEdge(const T& from, const T& to);
@@ -34,7 +33,7 @@ class Graph {
         std::vector<T> vertices();
         std::vector<std::vector<T> > edges();
 
-        float edgeWheight(const T& vertex1, const T& vertex2);
+        float edgeWeight(const T& vertex1, const T& vertex2);
 
         std::vector<T> neightbors(const T& vertex);
         std::vector<T> successors(const T& vertex);
@@ -45,7 +44,7 @@ class Graph {
         void dfs(VertexNode<T>* ptr, std::unordered_set<T>& visited, std::vector<T>& result);
 
         Graph<T>& operator=(const Graph<T>& other);
-        bool operator==(const Graph<T>& other);
+        bool operator==(Graph<T>& other);
 
         template <typename U>
         friend std::ostream& operator<<(std::ostream& os, Graph<U>& graph); 
@@ -58,7 +57,7 @@ class Graph {
         VertexNode<T>* findVertex(const T& vertex);
         void findTwoVertices(const T& from, const T& to, VertexNode<T>*& fromNode, VertexNode<T>*& toNode);
 
-        virtual void connectVertices(VertexNode<T>* fromNode, VertexNode<T>* toNode, float wheight = 0.0F);
+        virtual void connectVertices(VertexNode<T>* fromNode, VertexNode<T>* toNode, float weight = 0.0F);
         virtual void unconnectVertices(VertexNode<T>* fromNode, VertexNode<T>* toNodeF);
 
         void copy(const Graph<T>& from, Graph<T>& to);

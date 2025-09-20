@@ -94,7 +94,7 @@ std::vector<float> VertexNode<T>::getWeights() {
 
     EdgeNode<T>* current = this->neighbors;
     while (current) {
-        weights.push_back(current->getWheight());
+        weights.push_back(current->getWeight());
         current = current->getNext();
     }
 
@@ -122,13 +122,13 @@ void VertexNode<T>::setNeighbors(std::list<VertexNode<T>*> neighbors) {
 }
 
 template <typename T>
-void VertexNode<T>::setNeighbors(std::list<VertexNode<T>*> neighbors, std::list<float> wheights) { 
+void VertexNode<T>::setNeighbors(std::list<VertexNode<T>*> neighbors, std::list<float> weights) { 
 
     cleanNeighbors();
     neighborsSize = neighbors.size();
     EdgeNode<T>* dummy = new EdgeNode<T>();
     EdgeNode<T>* current = dummy;
-    auto that = wheights.begin();
+    auto that = weights.begin();
     for (auto it = neighbors.begin(); it != neighbors.end(); ++it) {
         current->next = new EdgeNode<T>(*it, *that); 
         current = current->getNext();
@@ -155,14 +155,14 @@ void VertexNode<T>::setNeighbors(std::vector<VertexNode<T>*> neighbors) {
 }
 
 template <typename T>
-void VertexNode<T>::setNeighbors(std::vector<VertexNode<T>*> neighbors, std::vector<float> wheights) { 
+void VertexNode<T>::setNeighbors(std::vector<VertexNode<T>*> neighbors, std::vector<float> weights) { 
   
     cleanNeighbors();
     neighborsSize = neighbors.size();
     EdgeNode<T>* dummy = new EdgeNode<T>();
     EdgeNode<T>* current = dummy;
 
-    auto that = wheights.begin();
+    auto that = weights.begin();
     for (auto it = neighbors.begin(); it != neighbors.end(); ++it) {
         current->next = new EdgeNode<T>(*it, *that); 
         current = current->getNext();
@@ -176,8 +176,8 @@ template <typename T>
 void VertexNode<T>::setNext(VertexNode<T>* next) { this->next = next; }
 
 template <typename T>
-void VertexNode<T>::addNeightbor(VertexNode<T>* newNeighbor, float wheight ) {
-    EdgeNode<T>* newEdge = new EdgeNode<T>(newNeighbor, wheight, neighbors);
+void VertexNode<T>::addNeightbor(VertexNode<T>* newNeighbor, float weight ) {
+    EdgeNode<T>* newEdge = new EdgeNode<T>(newNeighbor, weight, neighbors);
     neighbors = newEdge;
     neighborsSize++;
 }
@@ -212,18 +212,18 @@ void VertexNode<T>::cleanNeighbors() {
 }
 
 template <typename T>
-float VertexNode<T>::getWheightForVertex(VertexNode<T>* vertex) {
-    return getWheightForValue(vertex->getValue());
+float VertexNode<T>::getWeightForVertex(VertexNode<T>* vertex) {
+    return getWeightForValue(vertex->getValue());
 }
 
 template <typename T>
-float VertexNode<T>::getWheightForValue(const T& value) {
+float VertexNode<T>::getWeightForValue(const T& value) {
     EdgeNode<T>* current = neighbors;
     while (current && current->getVertex()->getValue() != value) {
         current = current->getNext();
     }
     if (current) {
-        return current->getWheight();
+        return current->getWeight();
     } else {
         throw std::runtime_error("don't have a neightbor");
     }
@@ -231,13 +231,13 @@ float VertexNode<T>::getWheightForValue(const T& value) {
 
 
 template <typename T>
-void VertexNode<T>::setWheightForVertex(VertexNode<T>* vertex, float wheight) {
+void VertexNode<T>::setWeightForVertex(VertexNode<T>* vertex, float weight) {
     EdgeNode<T>* current = neighbors;
     while (current && current->getVertex()->getValue() != vertex->getValue()) {
         current = current->getNext();
     }
     if (current) {
-        current->setWheight(wheight);
+        current->setWeight(weight);
     }
 }
 

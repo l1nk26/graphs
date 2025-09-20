@@ -13,8 +13,8 @@ DirectedGraph<T>::DirectedGraph(const DirectedGraph& other)
 {}
 
 template <typename T>
-void DirectedGraph<T>::connectVertices(VertexNode<T>* node1, VertexNode<T>* node2, float wheight) {
-    node1->addNeightbor(node2, wheight); 
+void DirectedGraph<T>::connectVertices(VertexNode<T>* node1, VertexNode<T>* node2, float weight) {
+    node1->addNeightbor(node2, weight); 
 }
 
 template <typename T>

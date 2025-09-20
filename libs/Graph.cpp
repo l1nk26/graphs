@@ -16,7 +16,7 @@ Graph<T>::Graph(const Graph<T>& other) : Graph<T>() {
 }
 
 template <typename T>
-void Graph<T>::createFromMap(std::unordered_set<T>& vertex, std::unordered_map<T, std::unordered_set<T> >& edges) {
+void Graph<T>::createFromMap(const std::unordered_set<T>& vertex, const std::unordered_map<T, std::unordered_set<T> >& edges) {
 
     vertexSize = vertex.size();
     std::unordered_map<T,VertexNode<T>*> aux;
@@ -37,7 +37,7 @@ void Graph<T>::createFromMap(std::unordered_set<T>& vertex, std::unordered_map<T
 
 
 template <typename T>
-void Graph<T>::createFromMapEdges(std::unordered_set<T>& vertex, std::unordered_map<T, std::unordered_set<Edge<T> > >& edges) {
+void Graph<T>::createFromMapEdges(const std::unordered_set<T>& vertex, const std::unordered_map<T, std::unordered_set<Edge<T> > >& edges) {
     
     vertexSize = vertex.size();
     std::unordered_map<T,VertexNode<T>*> aux;
@@ -97,7 +97,7 @@ void Graph<T>::addVertex(const T& vertex) {
     vertexSize++;
 }
 template <typename T>
-void Graph<T>::addEdge(const T& from, const T& to, float wheight) {
+void Graph<T>::addEdge(const T& from, const T& to, float weight) {
 
   VertexNode<T>* fromNode = NULL;
   VertexNode<T>* toNode = NULL;
@@ -106,7 +106,7 @@ void Graph<T>::addEdge(const T& from, const T& to, float wheight) {
 
   if (fromNode != NULL && toNode != NULL) {
       edgeSize++;
-      connectVertices(fromNode, toNode, wheight);
+      connectVertices(fromNode, toNode, weight);
   }
 }
 template <typename T>
@@ -196,7 +196,7 @@ std::vector<std::vector<T> > Graph<T>::edges() {
 }
 
 template <typename T>
-float Graph<T>::edgeWheight(const T& vertex1, const T& vertex2) {
+float Graph<T>::edgeWeight(const T& vertex1, const T& vertex2) {
 
     VertexNode<T>* node1, node2;
 
@@ -321,7 +321,7 @@ Graph<T>& Graph<T>::operator=(const Graph<T>& other) {
 }
 
 template <typename T>
-bool Graph<T>::operator==(const Graph<T>& other) {
+bool Graph<T>::operator==(Graph<T>& other) {
     if (edgeSize != other.edgeSize) {
         return false;
     }
@@ -329,7 +329,8 @@ bool Graph<T>::operator==(const Graph<T>& other) {
         return false;
     }
 
-    VertexNode<T>* current1 = head, current2 = other.head;  
+    VertexNode<T>* current1 = head; 
+    VertexNode<T>* current2 = other.head;  
     std::unordered_map<T, VertexNode<T>*> aux1, aux2;
     std::unordered_set<T> values1, values2;
 
@@ -340,8 +341,8 @@ bool Graph<T>::operator==(const Graph<T>& other) {
         aux1[current1->getValue()] = current1;
         aux2[current2->getValue()] = current2;
 
-        current1 = current1->getValue();
-        current2 = current2->getValue();
+        current1 = current1->getNext();
+        current2 = current2->getNext();
     }
       
     bool isEqual = values1 == values2;

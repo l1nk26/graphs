@@ -14,7 +14,7 @@ public:
   }
   Edge(EdgeNode<T>* edge) {
       value = edge->getVertex()->getValue();
-      weight = edge->getWheight();
+      weight = edge->getWeight();
   }
 
   T getValue() const { return value; }

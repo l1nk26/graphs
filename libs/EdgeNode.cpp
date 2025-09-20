@@ -7,17 +7,17 @@ EdgeNode<T>::EdgeNode() {
 }
 
 template <typename T>
-EdgeNode<T>::EdgeNode(VertexNode<T>* vertex, float wheight, EdgeNode<T>* next) {
+EdgeNode<T>::EdgeNode(VertexNode<T>* vertex, float weight, EdgeNode<T>* next) {
     this->vertex = vertex;
-    this->wheight = wheight;
+    this->weight = weight;
     this->next = next;
 }
 
 template <typename T>
-EdgeNode<T>::EdgeNode(VertexNode<T>* vertex, EdgeNode<T>* next, float wheight) {
+EdgeNode<T>::EdgeNode(VertexNode<T>* vertex, EdgeNode<T>* next, float weight) {
     this->vertex = vertex;
     this->next = next;
-    this->wheight = wheight;
+    this->weight = weight;
 }
 
 template <typename T>
@@ -26,8 +26,8 @@ VertexNode<T>* EdgeNode<T>::getVertex() {
 }
 
 template <typename T>
-float EdgeNode<T>::getWheight() {
-    return wheight;
+float EdgeNode<T>::getWeight() {
+    return weight;
 }
 
 template <typename T>
@@ -41,8 +41,8 @@ void EdgeNode<T>::setVertex(VertexNode<T>* vertex) {
 }
 
 template <typename T>
-void EdgeNode<T>::setWheight(float wheight) {
-    this->wheight = wheight;
+void EdgeNode<T>::setWeight(float weight) {
+    this->weight = weight;
 }
 
 template <typename T>

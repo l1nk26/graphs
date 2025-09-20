@@ -10,19 +10,19 @@ template <typename T>
 class EdgeNode {
     public:
         EdgeNode();
-        EdgeNode(VertexNode<T>* vertex, float wheight = 0, EdgeNode<T>* next = NULL);
-        EdgeNode(VertexNode<T>* vertex, EdgeNode<T>* next = NULL, float wheight = 0);
+        EdgeNode(VertexNode<T>* vertex, float weight = 0, EdgeNode<T>* next = NULL);
+        EdgeNode(VertexNode<T>* vertex, EdgeNode<T>* next = NULL, float weight = 0);
 
         VertexNode<T>* getVertex();
-        float getWheight();
+        float getWeight();
         EdgeNode<T>* getNext();
 
         void setVertex(VertexNode<T>* vertex);
-        void setWheight(float wheight);
+        void setWeight(float weight);
         void setNext(EdgeNode<T>* next);
 
     private:
-        float wheight;
+        float weight;
         VertexNode<T>* vertex;
         EdgeNode<T>* next;
 };
