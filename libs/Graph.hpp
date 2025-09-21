@@ -35,7 +35,7 @@ class Graph {
 
         float edgeWeight(const T& vertex1, const T& vertex2);
 
-        std::vector<T> neightbors(const T& vertex);
+        virtual std::vector<T> neightbors(const T& vertex);
         std::vector<T> successors(const T& vertex);
         std::vector<T> predecessors(const T& vertex);
 

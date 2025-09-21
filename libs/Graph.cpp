@@ -115,20 +115,38 @@ void Graph<T>::removeVertex(const T& vertex) {
     VertexNode<T>* dummy = new VertexNode<T>();
     dummy->setNext(head);
     VertexNode<T>* current = dummy;
+    VertexNode<T>* prevToNodeToDelete;
 
     while (current->getNext() != NULL && current->getNext()->getValue() != vertex) {
+        int neighborsSize = current->getNeighborsSize();
+        current->removeNeightbor(vertex);
+        if (neighborsSize - current->getNeighborsSize() != 0) {
+            edgeSize--;
+        }
+        current = current->getNext();
+    }
+    prevToNodeToDelete = current;
+    current = current->getNext();
+
+    while (current != NULL) {
+        int neighborsSize = current->getNeighborsSize();
+        current->removeNeightbor(vertex);
+        if (neighborsSize - current->getNeighborsSize() != 0) {
+            edgeSize--;
+        }
         current = current->getNext();
     }
 
-    if (current->getNext() != NULL) {
-        VertexNode<T>* toDelete = current->getNext();
-        current->setNext(current->getNext()->getNext());
+    if (prevToNodeToDelete->getNext() != NULL) {
+        VertexNode<T>* toDelete = prevToNodeToDelete->getNext();
+        prevToNodeToDelete->setNext(prevToNodeToDelete->getNext()->getNext());
         delete toDelete;
         vertexSize--;
     }
     head = dummy->getNext();
     delete dummy;
 }
+
 template <typename T>
 void Graph<T>::removeEdge(const T& from, const T& to) {
 
@@ -211,17 +229,17 @@ float Graph<T>::edgeWeight(const T& vertex1, const T& vertex2) {
 template <typename T>
 std::vector<T> Graph<T>::neightbors(const T& value) {
 
-    VertexNode<T>* node = findVertex(value);
-    if (node == NULL) {
-        throw std::runtime_error("does'n have neightbors");
-    }
-    return node->getNeighborValues();
+    return successors(value);
 }
 
 template <typename T>
 std::vector<T> Graph<T>::successors(const T& value) {
 
-    return neightbors();
+    VertexNode<T>* node = findVertex(value);
+    if (node == NULL) {
+        throw std::runtime_error("does'n have neightbors");
+    }
+    return node->getNeighborValues();
 }
 
 template <typename T>
@@ -232,17 +250,9 @@ std::vector<T> Graph<T>::predecessors(const T& value) {
     VertexNode<T>* current = head;
 
     while (current) {
-      
-        std::vector<T> neightborValues = current->getNeighborValues();
-        
-        int i = 0;
-        int size = neightborValues.size();
-        while (i < size && neightborValues[i] != value) i++;
-
-        if (i < size) {
+        if (current->existNeighbor(value)) {
             result.push_back(current->getValue());
         }
-
         current = current->getNext();
     }
 
@@ -468,3 +478,5 @@ std::ostream& operator<<(std::ostream& os, Graph<T>& graph) {
     }
     return os;
 }
+
+
