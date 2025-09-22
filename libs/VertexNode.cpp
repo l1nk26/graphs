@@ -201,6 +201,25 @@ void VertexNode<T>::removeNeightbor(VertexNode<T>* neighborToRemove) {
     delete dummy;
 }
 
+
+template <typename T>
+void VertexNode<T>::removeNeightbor(const T& neighborToRemove) {
+    EdgeNode<T>* dummy = new EdgeNode<T>();
+    dummy->setNext(neighbors);
+    EdgeNode<T>* current = dummy;
+    while (current->getNext() && current->getNext()->getVertex()->getValue() != neighborToRemove) {
+        current = current->getNext();
+    }
+    if (current->getNext()) {
+        EdgeNode<T>* toDelete = current->getNext();
+        current->setNext(current->getNext()->getNext());
+        delete toDelete;
+        neighborsSize--;
+    }
+    neighbors = dummy->getNext();
+    delete dummy;
+}
+
 template <typename T>
 void VertexNode<T>::cleanNeighbors() { 
     EdgeNode<T>* current = neighbors;

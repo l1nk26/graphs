@@ -126,7 +126,6 @@ void Graph<T>::removeVertex(const T& vertex) {
         current = current->getNext();
     }
     prevToNodeToDelete = current;
-    current = current->getNext();
 
     while (current != NULL) {
         int neighborsSize = current->getNeighborsSize();
@@ -173,7 +172,7 @@ bool Graph<T>::existEdge(const T& from, const T& to) {
 
     VertexNode<T>* fromNode;
     VertexNode<T>* toNode;
-    findTwoVertices(from, fromNode, toNode);
+    findTwoVertices(from, to, fromNode, toNode);
 
     return existEdge(fromNode, toNode);
 }
@@ -373,6 +372,7 @@ bool Graph<T>::operator==(Graph<T>& other) {
             for (EdgeNode<T>* neighbor : neighbors2) {
                 edges2.insert(Edge<T>(neighbor->getVertex()->getValue(), neighbor->getWeight()));
             }
+
             isEqual = edges1 == edges2;
 
             i++;

@@ -36,6 +36,7 @@ class VertexNode {
 
         void addNeightbor(VertexNode<T>* newNeighbor, float weight = 0.0F);
         void removeNeightbor(VertexNode<T>* neighborToRemove);
+        void removeNeightbor(const T& neighborToRemove);
         void cleanNeighbors();
 
         float getWeightForVertex(VertexNode<T>* vertex);
