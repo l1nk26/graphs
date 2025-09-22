@@ -138,6 +138,8 @@ void Graph<T>::removeVertex(const T& vertex) {
 
     if (prevToNodeToDelete->getNext() != NULL) {
         VertexNode<T>* toDelete = prevToNodeToDelete->getNext();
+        int neighborsSize = toDelete->getNeighborsSize();
+        discountEdges(neighborsSize);
         prevToNodeToDelete->setNext(prevToNodeToDelete->getNext()->getNext());
         delete toDelete;
         vertexSize--;
@@ -453,6 +455,14 @@ void Graph<T>::copy(const Graph<T>& from, Graph<T>& to) {
 template <typename T>
 bool Graph<T>::existEdge(VertexNode<T>* from, VertexNode<T>* to) {
     return from->existNeighbor(to->getValue());
+}
+
+
+template <typename T>
+void Graph<T>::discountEdges(int numberOfEdge) {
+    edgeSize = edgeSize - numberOfEdge + numberOfEdge; // solo hago esto para que se comporte diferencete en el grafo dirigido por el polimorfismo 
+    // esto nadie lo va entender quiza haya una mejor manera de aplicar el polimorfismo para este caso pero en 
+    // momento no lo veo
 }
 
 template <typename T>

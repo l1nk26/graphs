@@ -21,4 +21,9 @@ void DirectedGraph<T>::unconnectVertices(VertexNode<T>* node1, VertexNode<T>* no
 }
 
 template <typename T>
+void DirectedGraph<T>::discountEdges(int numberOfEdge) {
+    this->edgeSize -= numberOfEdge;
+}
+
+template <typename T>
 DirectedGraph<T>::~DirectedGraph() {}

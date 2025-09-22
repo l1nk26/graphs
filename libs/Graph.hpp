@@ -63,6 +63,9 @@ class Graph {
         void copy(const Graph<T>& from, Graph<T>& to);
 
         bool existEdge(VertexNode<T>* from, VertexNode<T>* to);
+
+        virtual void discountEdges(int numberOfEdge);
+
 };
 
 #include <Graph.cpp>
