@@ -74,14 +74,10 @@ int main() {
     assert(!emptyDirectedGraph.existEdge("A", "B"));
     assert(emptyDirectedGraph.size() == 3);
 
-    std::cout << emptyDirectedGraph << std::endl;
     emptyDirectedGraph.removeVertex("A");
-    std::cout << emptyDirectedGraph << std::endl;
     emptyDirectedGraph.removeVertex("B");
-    std::cout << emptyDirectedGraph << std::endl;
     emptyDirectedGraph.removeVertex("C");
     emptyDirectedGraph.removeVertex("D");
-    std::cout << emptyDirectedGraph << std::endl;
 
     assert(emptyDirectedGraph.order() == 0);
     assert(emptyDirectedGraph.size() == 0);
