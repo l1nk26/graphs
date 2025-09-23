@@ -264,10 +264,18 @@ std::vector<T> Graph<T>::predecessors(const T& value) {
 template <typename T>
 std::vector<T> Graph<T>::bfs(const T& inicial) {
 
+    std::unordered_set<T> visited;
+    std::vector<T> result = bfs(inicial, visited);
+
+    return result; 
+}
+
+template <typename T>
+std::vector<T> Graph<T>::bfs(const T& inicial, std::unordered_set<T>& visited) {
+
     std::vector<T> result;
     result.reserve(vertexSize);
 
-    std::unordered_set<T> visited;
     std::queue<VertexNode<T>*> aux;
     VertexNode<T>* current = findVertex(inicial);
 
@@ -292,21 +300,29 @@ std::vector<T> Graph<T>::bfs(const T& inicial) {
 
     return result; 
 }
+
 template <typename T>
 std::vector<T> Graph<T>::dfs(const T& inicial) {
+
+    std::unordered_set<T> visited;
+    std::vector<T> result = dfs(inicial, visited);
+
+    return result; 
+}
+
+template <typename T>
+std::vector<T> Graph<T>::dfs(const T& inicial, std::unordered_set<T>& visited) {
 
     std::vector<T> result;
     result.reserve(vertexSize);
     VertexNode<T>* nodoIncial = findVertex(inicial);
 
     if (nodoIncial != NULL) {
-        std::unordered_set<T> visited;
         dfs(nodoIncial, visited, result);
     }
 
     return result; 
 }
-
 
 template <typename T>
 void Graph<T>::dfs(VertexNode<T>* ptr, std::unordered_set<T>& visited, std::vector<T>& result) {

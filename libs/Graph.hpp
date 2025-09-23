@@ -42,7 +42,7 @@ class Graph {
         std::vector<T> bfs(const T& inicial);
         std::vector<T> bfs(const T& inicial, std::unordered_set<T>& visited);
         std::vector<T> dfs(const T& inicial);
-        void dfs(VertexNode<T>* ptr, std::unordered_set<T>& visited, std::vector<T>& result);
+        std::vector<T> dfs(const T& inicial, std::unordered_set<T>& visited);
 
         Graph<T>& operator=(const Graph<T>& other);
         bool operator==(Graph<T>& other);
@@ -66,6 +66,8 @@ class Graph {
         bool existEdge(VertexNode<T>* from, VertexNode<T>* to);
 
         virtual void discountEdges(int numberOfEdge);
+
+        void dfs(VertexNode<T>* ptr, std::unordered_set<T>& visited, std::vector<T>& result);
 };
 
 #include <Graph.cpp>
