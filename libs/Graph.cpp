@@ -216,14 +216,15 @@ std::vector<std::vector<T> > Graph<T>::edges() {
 template <typename T>
 float Graph<T>::edgeWeight(const T& vertex1, const T& vertex2) {
 
-    VertexNode<T>* node1, node2;
+    VertexNode<T>* node1;
+    VertexNode<T>* node2;
 
-    findTwoVertices(vertex1, vertex2, node1, node2);
+    findTwoVertices (vertex1, vertex2, node1, node2);
 
     if (node1 == NULL || node2 == NULL) {
         throw std::runtime_error("edge doesn't exist");
     } 
-    return vertex1->getWeightForVertex(node2);
+    return node1->getWeightForVertex(node2);
 }
 
 template <typename T>
