@@ -54,7 +54,6 @@ void Graph<T>::createFromMapEdges(const std::unordered_set<T>& vertex, const std
             edgeSize++;
         }
     }
-
 }
 
 template <typename T>

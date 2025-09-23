@@ -20,6 +20,7 @@ class DirectedGraph : public Graph<T> {
         void connectVertices(VertexNode<T>* node1, VertexNode<T>* node2, float weight = 0.0F) override;
         void unconnectVertices(VertexNode<T>* node1, VertexNode<T>* node2) override;
         void discountEdges(int numberOfEdge) override;
+        std::vector<T> neightbors(const T& value) override;
 };
 
 #include <DirectedGraph.cpp>

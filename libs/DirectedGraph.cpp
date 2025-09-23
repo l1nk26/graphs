@@ -27,3 +27,25 @@ void DirectedGraph<T>::discountEdges(int numberOfEdge) {
 
 template <typename T>
 DirectedGraph<T>::~DirectedGraph() {}
+        
+template <typename T>
+std::vector<T> DirectedGraph<T>::neightbors(const T& value) {
+    std::vector<T> successors = this->successors(value);
+    std::vector<T> predecessors = this->predecessors(value);
+    std::unordered_set<T> aux;
+    std::vector<T> result;
+
+    for (const T& value : successors) {
+        aux.insert(value);
+    }
+    for (const T& value : predecessors) {
+        aux.insert(value);
+    }
+    result.reserve(aux.size());
+    for (const T& value : aux) {
+        result.push_back(value);
+    }
+    
+    return result;
+}
+
