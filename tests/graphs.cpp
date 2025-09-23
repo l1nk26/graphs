@@ -60,11 +60,9 @@ void initGraphs() {
     directedGraphWithWeight.createFromMapEdges(
         {"A", "B", "C", "D"},
         {
-            {"A", {Edge<std::string>("B", 1)}},
-            {"A", {Edge<std::string>("C", 2)}},
-            {"C", {Edge<std::string>("B", 3)}},
-            {"D", {Edge<std::string>("A", 4)}},
-            {"D", {Edge<std::string>("B", 5)}}
+            {"A", {Edge<std::string>("B", 1), Edge<std::string>("C", 2)} },
+            {"C", {Edge<std::string>("B", 3)} },
+            {"D", {Edge<std::string>("A", 4), Edge<std::string>("B", 5)} }
         }
     );
 }
