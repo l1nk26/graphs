@@ -31,7 +31,7 @@ class Graph {
         bool existEdge(const T& from, const T& to);
 
         std::vector<T> vertices();
-        std::vector<std::vector<T> > edges();
+        virtual std::vector<std::vector<T> > edges();
 
         float edgeWeight(const T& vertex1, const T& vertex2);
 

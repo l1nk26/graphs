@@ -49,3 +49,21 @@ std::vector<T> DirectedGraph<T>::neightbors(const T& value) {
     return result;
 }
 
+template <typename T>
+std::vector<std::vector<T> > DirectedGraph<T>::edges() {
+    std::vector<std::vector<T> > result;
+    result.reserve(this->edgeSize);
+
+    VertexNode<T>* current = this->head;
+    while (current) {
+        std::vector<EdgeNode<T>* > edges = current->getEdges();
+        for (EdgeNode<T>* edge : edges) {
+            result.push_back(std::vector<T>());
+            result[result.size() - 1].push_back(current->getValue());
+            result[result.size() - 1].push_back(edge->getVertex()->getValue());
+        }
+        current = current->getNext();
+    }
+
+    return result;
+}

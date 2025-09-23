@@ -203,6 +203,15 @@ std::vector<std::vector<T> > Graph<T>::edges() {
     while (current) {
         std::vector<EdgeNode<T>* > edges = current->getEdges();
         for (EdgeNode<T>* edge : edges) {
+            bool repeated = false;
+            for (const std::vector<T>& value : result) {
+                if (value[0] == edge->getVertex()->getValue() && value[1] == current->getValue()) {
+                    repeated = true;
+                    break;
+                } 
+            } 
+            if (repeated) continue;
+            
             result.push_back(std::vector<T>());
             result[result.size() - 1].push_back(current->getValue());
             result[result.size() - 1].push_back(edge->getVertex()->getValue());
