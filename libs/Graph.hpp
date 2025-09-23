@@ -39,8 +39,9 @@ class Graph {
         std::vector<T> successors(const T& vertex);
         std::vector<T> predecessors(const T& vertex);
 
-        std::vector<T> bfs();
-        std::vector<T> dfs();
+        std::vector<T> bfs(const T& inicial);
+        std::vector<T> bfs(const T& inicial, std::unordered_set<T>& visited);
+        std::vector<T> dfs(const T& inicial);
         void dfs(VertexNode<T>* ptr, std::unordered_set<T>& visited, std::vector<T>& result);
 
         Graph<T>& operator=(const Graph<T>& other);
@@ -65,7 +66,6 @@ class Graph {
         bool existEdge(VertexNode<T>* from, VertexNode<T>* to);
 
         virtual void discountEdges(int numberOfEdge);
-
 };
 
 #include <Graph.cpp>

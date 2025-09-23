@@ -262,17 +262,17 @@ std::vector<T> Graph<T>::predecessors(const T& value) {
 
 
 template <typename T>
-std::vector<T> Graph<T>::bfs() {
+std::vector<T> Graph<T>::bfs(const T& inicial) {
 
     std::vector<T> result;
     result.reserve(vertexSize);
 
     std::unordered_set<T> visited;
     std::queue<VertexNode<T>*> aux;
-    VertexNode<T>* current;
+    VertexNode<T>* current = findVertex(inicial);
 
-    if (head != NULL) {
-        aux.push(head);
+    if (current != NULL) {
+        aux.push(current);
     }
 
     while (aux.empty()) {
@@ -293,14 +293,15 @@ std::vector<T> Graph<T>::bfs() {
     return result; 
 }
 template <typename T>
-std::vector<T> Graph<T>::dfs() {
+std::vector<T> Graph<T>::dfs(const T& inicial) {
 
     std::vector<T> result;
     result.reserve(vertexSize);
+    VertexNode<T>* nodoIncial = findVertex(inicial);
 
-    if (head != NULL) {
+    if (nodoIncial != NULL) {
         std::unordered_set<T> visited;
-        dfs(head, visited, result);
+        dfs(nodoIncial, visited, result);
     }
 
     return result; 
