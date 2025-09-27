@@ -15,13 +15,20 @@ Graph<string> readGraph() {
 
     unordered_set<string> vertex;
 
-    string parent, child;
+    string vertex1, vertex2, aux;
 
-    while (cin >> parent >> child) {
-        vertex.insert(parent);
-        vertex.insert(child);
-        Edge<string> edge(child, 1.5F);
-        edges2[parent].insert(edge);
+    while (cin >> vertex1 >> vertex2) {
+        vertex.insert(vertex1);
+        vertex.insert(vertex2);
+
+        // only if it is not directed
+        if (vertex1 > vertex2) {
+            aux = vertex1;
+            vertex1 = vertex2;
+            vertex2 = vertex1;
+        }
+        Edge<string> edge(vertex2, 1.5F);
+        edges2[vertex1].insert(edge);
     }
     
     Graph<string> graph;
