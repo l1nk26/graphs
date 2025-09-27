@@ -12,6 +12,8 @@ class DirectedGraph : public Graph<T> {
         DirectedGraph();
         DirectedGraph(const DirectedGraph& graph);
         ~DirectedGraph();
+        std::vector<T> neightbors(const T& value) override;
+        std::vector<std::vector<T> > edges() override;
 
         template <typename U>
         friend std::ostream& operator<<(std::ostream& os, Graph<U>& graph); 
@@ -20,8 +22,6 @@ class DirectedGraph : public Graph<T> {
         void connectVertices(VertexNode<T>* node1, VertexNode<T>* node2, float weight = 0.0F) override;
         void unconnectVertices(VertexNode<T>* node1, VertexNode<T>* node2) override;
         void discountEdges(int numberOfEdge) override;
-        std::vector<T> neightbors(const T& value) override;
-        std::vector<std::vector<T> > edges() override;
 };
 
 #include <DirectedGraph.cpp>
