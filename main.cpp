@@ -10,8 +10,8 @@
 using namespace std;
 
 Graph<string> readGraph() {
-    unordered_map<string, std::unordered_set<string> > edges; 
-    unordered_map<string, std::unordered_set<Edge<string> > > edges2;
+    unordered_map<string, unordered_set<string> > edges; 
+    unordered_map<string, unordered_set<Edge<string> > > edges2;
 
     unordered_set<string> vertex;
 
@@ -37,18 +37,20 @@ Graph<string> readGraph() {
 }
 
 DirectedGraph<string> readDirectedGraph() {
-    unordered_map<string, std::unordered_set<string> > edges; 
+    unordered_map<string, unordered_set<Edge<string> > > edges; 
     unordered_set<string> vertex;
+    float weight = 0;
     string parent, child;
 
-    while (cin >> parent >> child) {
+    while (cin >> parent >> child >> weight) {
         vertex.insert(parent);
         vertex.insert(child);
-        edges[parent].insert(child);
+        Edge<string> edge(child, weight);
+        edges[parent].insert(edge);
     }
     
     DirectedGraph<string> directedGraph;
-    directedGraph.createFromMap(vertex, edges);
+    directedGraph.createFromMapEdges(vertex, edges);
     
     return directedGraph;
 }
@@ -61,8 +63,7 @@ int main() {
     DirectedGraph<string> directedGraph = readDirectedGraph();
     cout << directedGraph << endl;
 
-    vector<vector<string> > v = directedGraph.edges();
-    cout << v << endl;
-
+    vector<string> dijkstraPath = directedGraph.dijkstra("Brazil", "Chile");
+    cout << dijkstraPath << endl;
     return 0;
 }

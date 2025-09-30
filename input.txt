@@ -1,6 +1,11 @@
-venezuela colombia
-US colombia
-Mexico Brazil
-colombia Brazil
-Peru Chile
-venezuela Peru
+Venezuela Colombia 2.4
+US Colombia 4.3
+Mexico Brazil 9.2
+Colombia Brazil 4.5
+Peru Chile 1.4
+Venezuela Peru 4.3
+Brazil Venezuela 7.5
+Chile US 3.2
+Venezuela US 2.3
+Peru Colombia 4.3
+Brazil Chile 30.6
