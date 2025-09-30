@@ -1,5 +1,7 @@
 #include <Graph.hpp>
 #include <queue>
+#include <iostream>
+#include <climits>
 
 template <typename T>
 Graph<T>::Graph() {
@@ -271,22 +273,22 @@ std::vector<T> Graph<T>::predecessors(const T& value) {
 
 
 template <typename T>
-std::vector<T> Graph<T>::bfs(const T& inicial) {
+std::vector<T> Graph<T>::bfs(const T& start) {
 
     std::unordered_set<T> visited;
-    std::vector<T> result = bfs(inicial, visited);
+    std::vector<T> result = bfs(start, visited);
 
     return result; 
 }
 
 template <typename T>
-std::vector<T> Graph<T>::bfs(const T& inicial, std::unordered_set<T>& visited) {
+std::vector<T> Graph<T>::bfs(const T& start, std::unordered_set<T>& visited) {
 
     std::vector<T> result;
     result.reserve(vertexSize);
 
     std::queue<VertexNode<T>*> aux;
-    VertexNode<T>* current = findVertex(inicial);
+    VertexNode<T>* current = findVertex(start);
 
     if (current != NULL) {
         aux.push(current);
@@ -311,20 +313,20 @@ std::vector<T> Graph<T>::bfs(const T& inicial, std::unordered_set<T>& visited) {
 }
 
 template <typename T>
-std::vector<T> Graph<T>::dfs(const T& inicial) {
+std::vector<T> Graph<T>::dfs(const T& start) {
 
     std::unordered_set<T> visited;
-    std::vector<T> result = dfs(inicial, visited);
+    std::vector<T> result = dfs(start, visited);
 
     return result; 
 }
 
 template <typename T>
-std::vector<T> Graph<T>::dfs(const T& inicial, std::unordered_set<T>& visited) {
+std::vector<T> Graph<T>::dfs(const T& start, std::unordered_set<T>& visited) {
 
     std::vector<T> result;
     result.reserve(vertexSize);
-    VertexNode<T>* nodoIncial = findVertex(inicial);
+    VertexNode<T>* nodoIncial = findVertex(start);
 
     if (nodoIncial != NULL) {
         dfs(nodoIncial, visited, result);
@@ -348,6 +350,119 @@ void Graph<T>::dfs(VertexNode<T>* ptr, std::unordered_set<T>& visited, std::vect
     }
 }
 
+
+template <typename T>
+std::vector<T> Graph<T>::shortestPath(const T& start, const T& end) {
+
+    bool isFound = false;
+    VertexNode<T>* v, *w;
+    std::unordered_set<T> visited;
+    std::unordered_map<T, T> previus;
+    std::queue<VertexNode<T>*> aux;
+
+    v = findVertex(start);
+    if (v != NULL) {
+        aux.push(v);
+    }
+
+    while (!aux.empty() && !isFound) {
+        v = aux.front();
+        aux.pop();
+
+        std::vector<VertexNode<T>*> neighbors = v->getNeighbors();
+        int i = 0;
+
+        while (i < (int)neighbors.size() && !isFound) {
+
+            w = neighbors[i];
+
+            if (visited.find(w->getValue()) == visited.end()) {
+                aux.push(w);
+                visited.insert(w->getValue());
+                previus[w->getValue()] = v->getValue(); 
+
+                if (w->getValue() == end) {
+                    isFound = true;
+                }
+            }
+
+            i++;
+        }
+    }
+
+    std::list<T> auxList;
+    if (isFound) {
+        T auxVertex = end;
+        while (auxVertex != start) {
+            auxList.push_front(auxVertex);
+            auxVertex = previus[auxVertex];
+        }
+        auxList.push_front(start);
+    }
+    std::vector<T> result(auxList.begin(), auxList.end());
+
+    return result;
+}
+
+template <typename T>
+std::vector<T> Graph<T>::dijkstra(const T& start, const T& end) {
+
+    bool isFound = false;
+    VertexNode<T>* v, *w;
+    std::unordered_set<T> marked;
+    std::unordered_map<T, T> previus;
+    std::unordered_map<T, float> distance;
+
+    v = findVertex(start);
+    if (v != NULL) {
+        distance[v->getValue()] = 0;
+    }
+
+    while ((int)marked.size() < vertexSize && !isFound) {
+
+        VertexNode<T>* p = head;
+        float minDistance = LONG_MAX;
+        while (p != NULL) {
+            if (distance.find(p->getValue()) != distance.end() && marked.find(p->getValue()) == marked.end() && distance[p->getValue()] < minDistance) {
+                v = p; 
+                minDistance = distance[p->getValue()];
+            }
+            p = p->getNext();
+        }
+
+        marked.insert(v->getValue());
+        
+        if (v->getValue() == end) {
+            isFound = true;
+        }
+
+        std::vector<EdgeNode<T>*> edges = v->getEdges();
+        int i = 0;
+
+        while (i < (int)edges.size() && !isFound) {
+
+            w = edges[i]->getVertex();
+            if (marked.find(w->getValue()) == marked.end()) {
+                distance[w->getValue()] = distance[v->getValue()] + edges[i]->getWeight();
+                previus[w->getValue()] = v->getValue(); 
+            }
+            i++;
+        }
+    }
+
+    std::list<T> auxList;
+    if (isFound) {
+        T auxVertex = end;
+        while (auxVertex != start) {
+            auxList.push_front(auxVertex);
+            auxVertex = previus[auxVertex];
+        }
+        auxList.push_front(start);
+    }
+    std::vector<T> result(auxList.begin(), auxList.end());
+
+    return result;
+}
 
 template <typename T>
 Graph<T>& Graph<T>::operator=(const Graph<T>& other) {
@@ -486,7 +601,7 @@ bool Graph<T>::existEdge(VertexNode<T>* from, VertexNode<T>* to) {
 
 template <typename T>
 void Graph<T>::discountEdges(int numberOfEdge) {
-    edgeSize = edgeSize - numberOfEdge + numberOfEdge; // solo hago esto para que se comporte diferencete en el grafo dirigido por el polimorfismo 
+    edgeSize = edgeSize - numberOfEdge + numberOfEdge; // solo hago esto para que se comporte diferente en el grafo dirigido por el polimorfismo 
     // esto nadie lo va entender quiza haya una mejor manera de aplicar el polimorfismo para este caso pero en 
     // momento no lo veo
 }

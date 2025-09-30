@@ -44,6 +44,9 @@ class Graph {
         std::vector<T> dfs(const T& inicial);
         std::vector<T> dfs(const T& inicial, std::unordered_set<T>& visited);
 
+        std::vector<T> shortestPath(const T& start, const T& end);
+        std::vector<T> dijkstra(const T& start, const T& end);
+
         Graph<T>& operator=(const Graph<T>& other);
         bool operator==(Graph<T>& other);
 
